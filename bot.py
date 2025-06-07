@@ -18,7 +18,7 @@ async def ping(ctx):
     print(f"[INFO] {ctx.author} ({ctx.author.id}) benutzte '!ping'.")
     await ctx.send("Pong!")
 
-PERK_API_URL = "https://dbd-api.herokuapp.com/perks"
+PERK_API_URL = "https://dbd.tricky.lol/api/perks"
 
 def get_shrine_perks():
     url = "https://nightlight.gg/shrine"
