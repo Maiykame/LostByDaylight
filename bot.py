@@ -17,29 +17,20 @@ async def ping(ctx):
 
 @bot.command()
 async def shrine(ctx):
-    print(f"[INFO] {ctx.author} ({ctx.author.id}) benutzte '!shrine'.")
-    try:
-        url = "https://api.nightlight.gg/v1/shrine?pretty=true"
-        res = requests.get(url)
-        res.raise_for_status()
+    url = "https://api.nightlight.gg/v1/shrine?pretty=true"
+    res = requests.get(url)
 
-        data = res.json()
-        perks = data.get("perks", [])
-        if not perks:
-            await ctx.send("Keine Shrine-Perks gefunden.")
-            return
+    if res.status_code != 200:
+        await ctx.send(f"Fehler: Status-Code {res.status_code}")
+        return
 
-        # Nur die Namen extrahieren
-        perk_names = [perk["name"] for perk in perks]
+    text = res.text
+    # Die Perks sind durch Kommas getrennt, vor dem '|'
+    perks_part = text.split('|')[0].strip()
+    perks = [p.strip() for p in perks_part.split(',')]
 
-        # Sende als formatierte Liste
-        msg = "**Aktuelle Shrine of Secrets Perks:**\n" + "\n".join(f"- {name}" for name in perk_names)
-        await ctx.send(msg)
-
-    except Exception as e:
-        await ctx.send(f"Fehler beim Abrufen der Shrine-Daten: {e}")
-        print(f"Status Code: {res.status_code}")
-        print(f"Response Text: {res.text[:200]}")  # Nur erste 200 Zeichen ausgeben
+    msg = "**Aktuelle Shrine of Secrets Perks:**\n" + "\n".join(f"- {perk}" for perk in perks)
+    await ctx.send(msg)
 
 token = os.getenv("TOKEN")
 if token is None:
