@@ -38,6 +38,8 @@ async def shrine(ctx):
 
     except Exception as e:
         await ctx.send(f"Fehler beim Abrufen der Shrine-Daten: {e}")
+        print(f"Status Code: {res.status_code}")
+        print(f"Response Text: {res.text[:200]}")  # Nur erste 200 Zeichen ausgeben
 
 token = os.getenv("TOKEN")
 if token is None:
