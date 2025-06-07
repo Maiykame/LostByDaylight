@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 intents = discord.Intents.default()
 intents.message_content = True  # Wichtig für Befehle ab API v2
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 @bot.event
 async def on_ready():
@@ -15,6 +15,7 @@ async def on_ready():
 
 @bot.command()
 async def ping(ctx):
+    print(f"[INFO] {ctx.author} ({ctx.author.id} benutzte '!ping'.")
     await ctx.send("Pong!")
 
 PERK_API_URL = "https://dbd-api.herokuapp.com/perks"
@@ -41,6 +42,7 @@ def get_perk_data(perk_name):
 
 @bot.command()
 async def shrine(ctx):
+    print(f"[INFO] {ctx.author} ({ctx.author.id} benutzte '!shrine'.")
     try:
         perk_names = get_shrine_perks()
         embeds = []
