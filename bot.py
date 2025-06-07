@@ -19,4 +19,4 @@ token = os.getenv("TOKEN")
 if token is None:
     print("Fehlender TOKEN in Umgebungsvariablen")
 else:
-    bot.run(TOKEN)
+    bot.run(token)
