@@ -11,8 +11,11 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_comma
 @bot.event
 async def on_ready():
     print(f"Bot ist eingeloggt als {bot.user}")
-    await create_reaction_message(1381195457858109440, {
-        "✅": 1364631972621844541
+    await create_reaction_message(1381197888985763910, {
+        "💻": 1364631941307043972, # PC
+        "🎮": 1364631972621844541, # Playstation
+        "🟢": 1364632015042908180, # XBox
+        "🔴": 1364632054335144056# Switch
     })
 
 async def create_reaction_message(message_id: int, emoji_role_map: dict):
