@@ -9,11 +9,59 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_comma
 @bot.event
 async def on_ready():
     print(f"Bot ist eingeloggt als {bot.user}")
+    await create_rection_message(1381195457858109440, {
+        "✅": 1364631972621844541
+    })
 
-@bot.command()
-async def ping(ctx):
-    print(f"[INFO] {ctx.author} ({ctx.author.id}) benutzte '!ping'.")
-    await ctx.send("Pong!")
+async def create_reaction_message(message_id: int, emoji_role_map: dict):
+    reaction_role_messages[message_id] = emoji_role_map
+
+    # Hole Nachricht, um Reaktionen zu setzen
+    for guild in bot.guilds:
+        for channel in guild.text_channels:
+            try:
+                message = await channel.fetch_message(message_id)
+                for emoji in emoji_role_map:
+                    await message.add_reaction(emoji)
+                return
+            except (discord.NotFound, discord.Forbidden, discord.HTTPException):
+                continue
+
+@bot.event
+async def on_raw_reaction_add(payload):
+    if payload.message_id not in reaction_role_messages:
+        return
+
+    emoji_map = reaction_role_messages[payload.message_id]
+    role_id = emoji_map.get(str(payload.emoji))
+    if not role_id:
+        return
+
+    guild = bot.get_guild(payload.guild_id)
+    member = guild.get_member(payload.user_id)
+    role = guild.get_role(role_id)
+
+    if guild and member and role and not member.bot:
+        await member.add_roles(role)
+        print(f"✅ Rolle {role.name} zugewiesen an {member.name}")
+
+@bot.event
+async def on_raw_reaction_remove(payload):
+    if payload.message_id not in reaction_role_messages:
+        return
+
+    emoji_map = reaction_role_messages[payload.message_id]
+    role_id = emoji_map.get(str(payload.emoji))
+    if not role_id:
+        return
+
+    guild = bot.get_guild(payload.guild_id)
+    member = guild.get_member(payload.user_id)
+    role = guild.get_role(role_id)
+
+    if guild and member and role and not member.bot:
+        await member.remove_roles(role)
+        print(f"❌ Rolle {role.name} entfernt von {member.name}")
 
 @bot.command()
 async def shrine(ctx):
