@@ -2,14 +2,16 @@ import os
 import discord
 from discord.ext import commands
 import requests
-from bs4 import BeautifulSoup
+
+# Globale Mapping-Tabelle für Reaction Roles
+reaction_role_messages = {}
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_command=None)
 
 @bot.event
 async def on_ready():
     print(f"Bot ist eingeloggt als {bot.user}")
-    await create_rection_message(1381195457858109440, {
+    await create_reaction_message(1381195457858109440, {
         "✅": 1364631972621844541
     })
 
