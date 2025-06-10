@@ -87,6 +87,10 @@ async def shrine(ctx):
 
 @bot.command()
 async def sudo(ctx, *, message):
+    try:
+        await ctx.message.delete()
+    except discord.Forbidden:
+        pass  # Bot darf die Nachricht nicht löschen
     await ctx.send(message)
 
 token = os.getenv("TOKEN")
