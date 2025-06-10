@@ -85,6 +85,10 @@ async def shrine(ctx):
     msg = "**Aktuelle Shrine of Secrets Perks:**\n" + "\n".join(f"- {perk}" for perk in perks)
     await ctx.send(msg)
 
+@bot.command()
+async def sudo(ctx, *, message):
+    await ctx.send(message)
+
 token = os.getenv("TOKEN")
 if token is None:
     print("Fehlender TOKEN in Umgebungsvariablen")
