@@ -86,6 +86,7 @@ async def shrine(ctx):
     await ctx.send(msg)
 
 @bot.command()
+@commands.has_permissions(administrator=True)
 async def sudo(ctx, *, message):
     try:
         await ctx.message.delete()
