@@ -1,7 +1,7 @@
 import discord
 reaction_role_messages = {}
 
-async def create_reaction_message_function(message_id: int, emoji_role_map: dict):
+async def create_reaction_message_function(bot, message_id: int, emoji_role_map: dict):
     reaction_role_messages[message_id] = emoji_role_map
 
     for guild in bot.guilds:
