@@ -5,9 +5,6 @@ import requests
 
 from Misc.on_ready import on_ready_event
 
-# Globale Mapping-Tabelle für Reaction Roles
-reaction_role_messages = {}
-
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_command=None)
 
 @bot.event
