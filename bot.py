@@ -32,15 +32,10 @@ async def on_raw_reaction_remove(payload):
 async def shrine(ctx):
     await shrine_command(ctx)
 
-
 @bot.command()
 @commands.has_permissions(administrator=True)
 async def sudo(ctx, *, message):
-    try:
-        await ctx.message.delete()
-    except discord.Forbidden:
-        pass
-    await ctx.send(message)
+    await sudo_command(ctx, *, message)
 
 token = os.getenv("TOKEN")
 if token is None:
