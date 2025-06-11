@@ -93,24 +93,35 @@ async def on_raw_reaction_remove(payload):
 
 @bot.command()
 async def shrine(ctx):
-    url = "https://api.nightlight.gg/v1/shrine?pretty=true"
+    url = "https://api.nightlight.gg/v1/shrine/current"
     res = requests.get(url)
 
     if res.status_code != 200:
         await ctx.send(f"❌ Fehler beim Abrufen der Shrine-Daten. Status-Code: {res.status_code}")
         return
 
-    text = res.text
-    perks_part = text.split('|')[0].strip()
-    perks = [p.strip() for p in perks_part.split(',')]
+    data = res.json()
+    perks = data.get("perks", [])
 
     embed = discord.Embed(
-        title="🛐 Aktuelle Shrine of Secrets",
-        description="\n".join(f"- {perk}" for perk in perks),
-        color=discord.Color.dark_red()
+        title="🛐 Aktuelle Shrine of Secrets Perks",
+        description="Hier sind die aktuellen Perks im Schrein:",
+        color=discord.Color.purple()
     )
-    embed.set_footer(text="Daten von nightlight.gg")
 
+    for perk in perks:
+        name = perk.get("name", "Unbekannt")
+        desc = perk.get("description", "Keine Beschreibung verfügbar.")
+        char = perk.get("character", "???")
+        role = perk.get("role", "Unbekannt")
+
+        embed.add_field(
+            name=f"{name} ({role} – {char})",
+            value=desc,
+            inline=False
+        )
+
+    embed.set_footer(text="Daten von nightlight.gg")
     await ctx.send(embed=embed)
 
 @bot.command()
