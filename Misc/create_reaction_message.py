@@ -1,3 +1,4 @@
+import discord
 reaction_role_messages = {}
 
 async def create_reaction_message_function(message_id: int, emoji_role_map: dict):
