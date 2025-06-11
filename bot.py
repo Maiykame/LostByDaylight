@@ -1,7 +1,6 @@
 import os
 import discord
 from discord.ext import commands
-import requests
 
 from Event.on_ready import on_ready_event
 from Event.on_raw_reaction_add import on_raw_reaction_add_event
