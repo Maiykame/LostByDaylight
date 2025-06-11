@@ -19,13 +19,32 @@ async def on_ready():
     })
     await bot.change_presence(
         status=discord.Status.online,
-        activity=discord.Game(name='Test')
+        activity=discord.Game(name='!help')
     )
+
+@bot.command()
+async def help(ctx):
+    embed = discord.Embed(
+        title="📖 Hilfe – Befehlsübersicht",
+        description="Liste aller verfügbaren Befehle:",
+        color=discord.Color.blurple()
+    )
+
+    commands_info = [
+        ("!help", "Zeigt diese Hilfeseite an."),
+        ("!shrine", "Zeigt den zurzeitigen Shrine of Secrets an."),
+    ]
+
+    for name, desc in commands_info:
+        embed.add_field(name=name, value=desc, inline=False)
+
+    embed.set_footer(text="Bot entwickelt von Maiykame")
+
+    await ctx.send(embed=embed)
 
 async def create_reaction_message(message_id: int, emoji_role_map: dict):
     reaction_role_messages[message_id] = emoji_role_map
 
-    # Hole Nachricht, um Reaktionen zu setzen
     for guild in bot.guilds:
         for channel in guild.text_channels:
             try:
@@ -82,7 +101,7 @@ async def shrine(ctx):
         return
 
     text = res.text
-    # Die Perks sind durch Kommas getrennt, vor dem '|'
+    
     perks_part = text.split('|')[0].strip()
     perks = [p.strip() for p in perks_part.split(',')]
 
@@ -95,7 +114,7 @@ async def sudo(ctx, *, message):
     try:
         await ctx.message.delete()
     except discord.Forbidden:
-        pass  # Bot darf die Nachricht nicht löschen
+        pass
     await ctx.send(message)
 
 token = os.getenv("TOKEN")
