@@ -8,6 +8,7 @@ from Event.on_raw_reaction_remove import on_raw_reaction_remove_event
 
 from Commands.help import help_command
 from Commands.shrine import shrine_command
+from Commands.sudo import sudo_command
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_command=None)
 
