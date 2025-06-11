@@ -1,6 +1,6 @@
 import os
 import discord
-import request
+import requests
 
 async def shrine_command(ctx):
     url = "https://api.nightlight.gg/v1/shrine?pretty=true"
