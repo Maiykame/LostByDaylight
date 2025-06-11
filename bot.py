@@ -5,6 +5,7 @@ import requests
 
 from Event.on_ready import on_ready_event
 from Event.on_raw_reaction_add import on_raw_reaction_add_event
+from Event.on_raw_reaction_remove import on_raw_reaction_remove_event
 
 from Commands.help import help_command
 
@@ -24,21 +25,7 @@ async def on_raw_reaction_add(payload):
 
 @bot.event
 async def on_raw_reaction_remove(payload):
-    if payload.message_id not in reaction_role_messages:
-        return
-
-    emoji_map = reaction_role_messages[payload.message_id]
-    role_id = emoji_map.get(str(payload.emoji))
-    if not role_id:
-        return
-
-    guild = bot.get_guild(payload.guild_id)
-    member = guild.get_member(payload.user_id)
-    role = guild.get_role(role_id)
-
-    if guild and member and role and not member.bot:
-        await member.remove_roles(role)
-        print(f"❌ Rolle {role.name} entfernt von {member.name}")
+    await on_raw_reaction_remove_event(bot, payload)
 
 @bot.command()
 async def shrine(ctx):
