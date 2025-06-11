@@ -15,7 +15,7 @@ async def on_ready():
 
 @bot.command()
 async def help(ctx):
-    help_command(ctx)
+    await help_command(ctx)
 
 @bot.event
 async def on_raw_reaction_add(payload):
