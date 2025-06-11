@@ -95,7 +95,7 @@ async def sudo(ctx, *, message):
     await ctx.send(message)
 
 @bot.command()
-@commands.has_permission(adminstrator=True)
+@commands.has_permissions(administrator=True)
 async def spam_ping(ctx, id: int, amount: int):
     for i in range(amount):
         await ctx.send(f"<@{id}> kommt Online!!!")
