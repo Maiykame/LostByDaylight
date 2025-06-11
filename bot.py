@@ -97,16 +97,21 @@ async def shrine(ctx):
     res = requests.get(url)
 
     if res.status_code != 200:
-        await ctx.send(f"Fehler: Status-Code {res.status_code}")
+        await ctx.send(f"❌ Fehler beim Abrufen der Shrine-Daten. Status-Code: {res.status_code}")
         return
 
     text = res.text
-    
     perks_part = text.split('|')[0].strip()
     perks = [p.strip() for p in perks_part.split(',')]
 
-    msg = "**Aktuelle Shrine of Secrets Perks:**\n" + "\n".join(f"- {perk}" for perk in perks)
-    await ctx.send(msg)
+    embed = discord.Embed(
+        title="🛐 Aktuelle Shrine of Secrets",
+        description="\n".join(f"- {perk}" for perk in perks),
+        color=discord.Color.dark_red()
+    )
+    embed.set_footer(text="Daten von nightlight.gg")
+
+    await ctx.send(embed=embed)
 
 @bot.command()
 @commands.has_permissions(administrator=True)
