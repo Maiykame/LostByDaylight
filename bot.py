@@ -94,6 +94,12 @@ async def sudo(ctx, *, message):
         pass  # Bot darf die Nachricht nicht löschen
     await ctx.send(message)
 
+@bot.command()
+@commands.has_permission(adminstrator=True)
+async def spam_ping(ctx, id: int, amount: int):
+    for i in range(amount):
+        await ctx.send(f"<@{id}> kommt Online!!!")
+
 token = os.getenv("TOKEN")
 if token is None:
     print("Fehlender TOKEN in Umgebungsvariablen")
