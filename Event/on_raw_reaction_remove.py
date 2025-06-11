@@ -1,6 +1,6 @@
 from Misc.create_reaction_message import reaction_role_messages
 
-async def on_raw_reaction_remove(bot, payload):
+async def on_raw_reaction_remove_event(bot, payload):
     if payload.message_id not in reaction_role_messages:
         return
 
