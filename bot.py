@@ -12,7 +12,7 @@ bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_comma
 
 @bot.event
 async def on_ready():
-    on_ready_event(bot)
+    await on_ready_event(bot)
 
 @bot.command()
 async def help(ctx):
