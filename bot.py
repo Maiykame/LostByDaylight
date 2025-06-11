@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 import requests
 
-from Misc.on_ready import on_ready_event
+from Event.on_ready import on_ready_event
 
 from Commands.help import help_command
 
