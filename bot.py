@@ -34,19 +34,6 @@ async def help(ctx):
 
     await ctx.send(embed=embed)
 
-async def create_reaction_message(message_id: int, emoji_role_map: dict):
-    reaction_role_messages[message_id] = emoji_role_map
-
-    for guild in bot.guilds:
-        for channel in guild.text_channels:
-            try:
-                message = await channel.fetch_message(message_id)
-                for emoji in emoji_role_map:
-                    await message.add_reaction(emoji)
-                return
-            except (discord.NotFound, discord.Forbidden, discord.HTTPException):
-                continue
-
 @bot.event
 async def on_raw_reaction_add(payload):
     if payload.message_id not in reaction_role_messages:
