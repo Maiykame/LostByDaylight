@@ -17,6 +17,10 @@ async def on_ready():
         "🟢": 1364632015042908180, # XBox
         "🔴": 1364632054335144056# Switch
     })
+    await bot.change_presence(
+        status=discord.Status.online,
+        activity=discord.Game(name='Test')
+    )
 
 async def create_reaction_message(message_id: int, emoji_role_map: dict):
     reaction_role_messages[message_id] = emoji_role_map
