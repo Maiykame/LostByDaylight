@@ -10,8 +10,6 @@ from Commands.help import help_command
 from Commands.shrine import shrine_command
 from Commands.sudo import sudo_command
 
-from Mod_Commands.kick import kick_command
-
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_command=None)
 
 @bot.event
