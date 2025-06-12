@@ -41,8 +41,8 @@ async def sudo(ctx, message):
 
 @bot.command()
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, *, reason="Kein Grund angegeben"):
-    kick_command(ctx, member, *, reason)
+async def kick(ctx, member: discord.Member, reason="Kein Grund angegeben"):
+    kick_command(ctx, member, reason)
 
 token = os.getenv("TOKEN")
 if token is None:
