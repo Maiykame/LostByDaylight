@@ -1,4 +1,4 @@
-async def kick(ctx, member: discord.Member, *, reason="Kein Grund angegeben"):
+async def kick(ctx, member: discord.Member, reason="Kein Grund angegeben"):
     if not member.kickable:
         return await ctx.send("Ich kann diesen Benutzer nicht kicken.")
     await member.kick(reason=reason)
