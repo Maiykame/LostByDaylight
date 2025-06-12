@@ -10,6 +10,8 @@ from Commands.help import help_command
 from Commands.shrine import shrine_command
 from Commands.sudo import sudo_command
 
+from Mod_Commands.kick import kick_command
+
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all(), help_command=None)
 
 @bot.event
@@ -36,6 +38,11 @@ async def shrine(ctx):
 @commands.has_permissions(administrator=True)
 async def sudo(ctx, message):
     await sudo_command(ctx, message)
+
+@bot.command()
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason="Kein Grund angegeben"):
+    kick_command(ctx, member: discord.Member, *, reason="Kein Grund angegeben")
 
 token = os.getenv("TOKEN")
 if token is None:
