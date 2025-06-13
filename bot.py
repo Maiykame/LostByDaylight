@@ -34,7 +34,7 @@ async def shrine(ctx):
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-async def sudo(ctx, message):
+async def sudo(ctx, *, message):
     await sudo_command(ctx, message)
 
 token = os.getenv("TOKEN")
